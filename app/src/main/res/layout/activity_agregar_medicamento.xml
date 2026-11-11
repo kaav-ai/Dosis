@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="#FFFFFF">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Agregar medicamento"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="#1A2B4C"
+        android:layout_marginBottom="24dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nombre del medicamento"
+        android:textColor="#666666"
+        android:layout_marginBottom="8dp"/>
+
+    <EditText
+        android:id="@+id/etNombreMed"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:hint="Ej. Omeprazol"
+        android:background="@android:drawable/editbox_background"
+        android:padding="12dp"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dosis indicada"
+        android:textColor="#666666"
+        android:layout_marginBottom="8dp"/>
+
+    <EditText
+        android:id="@+id/etDosisMed"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:hint="Ej. 20 mg - 1 cápsula"
+        android:inputType="text"
+        android:background="@android:drawable/editbox_background"
+        android:padding="12dp"
+        android:layout_marginBottom="16dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Frecuencia"
+        android:textColor="#666666"
+        android:layout_marginBottom="8dp"/>
+
+    <Spinner
+        android:id="@+id/spinnerFrecuencia"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@android:drawable/editbox_background"
+        android:layout_marginBottom="32dp"/>
+
+
+    <!-- Nota: Aquí irían los selectores de Hora y Frecuencia de tu diseño.
+         Por simplicidad visual inicial, usaremos los EditText de arriba para validar -->
+
+    <Button
+        android:id="@+id/btnGuardarMedicamento"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Guardar medicamento"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        android:backgroundTint="#0F4C81"
+        android:layout_marginTop="32dp"/>
+
+</LinearLayout>
