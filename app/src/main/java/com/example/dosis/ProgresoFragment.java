@@ -12,7 +12,7 @@ public class ProgresoFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // Enlaza con fragment_inicio.xml
+        // Enlaza la vista con fragment_progreso.xml
         return inflater.inflate(R.layout.fragment_progreso, container, false);
     }
 }
