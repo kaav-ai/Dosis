@@ -1,3 +1,27 @@
 <resources>
     <string name="app_name">Dosis</string>
+
+    <!-- Textos de fragment_perfil -->
+    <string name="perfil_subtitulo_superior">CONFIGURACIÓN</string>
+    <string name="perfil_titulo">Mi perfil</string>
+    <string name="perfil_descripcion">Administra tus preferencias y privacidad.</string>
+    <string name="perfil_iniciales_defecto">AR</string>
+    <string name="perfil_nombre_defecto">Alex Ramírez</string>
+    <string name="perfil_rol">Paciente</string>
+    <string name="perfil_editar_nombre">Editar nombre</string>
+    <string name="perfil_seccion_preferencias">PREFERENCIAS</string>
+    <string name="perfil_notificaciones_titulo">Notificaciones</string>
+    <string name="perfil_notificaciones_subtitulo">Sonido y recordatorios</string>
+    <string name="perfil_alarmas_titulo">Alarmas exactas</string>
+    <string name="perfil_alarmas_permitidas">Permitidas en este dispositivo</string>
+    <string name="perfil_flecha_derecha">&gt;</string>
+    <string name="perfil_horario_titulo">Formato de horario</string>
+    <string name="perfil_horario_12h">12 horas (AM/PM)</string>
+    <string name="perfil_seccion_privacidad">DATOS Y PRIVACIDAD</string>
+    <string name="perfil_almacenamiento_titulo">Almacenamiento local</string>
+    <string name="perfil_almacenamiento_subtitulo">Tus datos no salen de este dispositivo</string>
+    <string name="perfil_aviso_titulo">Importante</string>
+    <string name="perfil_aviso_descripcion">Dosis no sustituye la orientación de un profesional de la salud.</string>
+    <string name="perfil_horario_24h">24 horas (00:00 &#8211; 23:59)</string>
+    <string name="perfil_alarmas_requeridas">Permiso requerido (Toca para activar)</string>
 </resources>
