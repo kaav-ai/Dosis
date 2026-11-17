@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Permisos requeridos para alarmas y notificaciones -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
@@ -14,20 +16,32 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Dosis">
+
+        <!-- Pantalla de Bienvenida (Se abre primero para pedir el nombre) -->
         <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:windowSoftInputMode="adjustResize">
+            android:name=".BienvenidaActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <receiver android:name=".servicios.AlarmaReceiver" android:exported="true" />
+        <!-- Pantalla Principal con la barra de navegación inferior -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
 
-        <activity android:name=".AgregarMedicamentoActivity" />
+        <!-- Pantalla para Agregar o Editar Medicamentos -->
+        <activity
+            android:name=".AgregarMedicamentoActivity"
+            android:exported="false" />
+
+        <!-- Receptor para disparar las alarmas y notificaciones en segundo plano -->
+        <receiver
+            android:name=".servicios.AlarmaReceiver"
+            android:exported="true" />
 
     </application>
 

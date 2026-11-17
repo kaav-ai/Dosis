@@ -24,4 +24,5 @@
     <string name="perfil_aviso_descripcion">Dosis no sustituye la orientación de un profesional de la salud.</string>
     <string name="perfil_horario_24h">24 horas (00:00 &#8211; 23:59)</string>
     <string name="perfil_alarmas_requeridas">Permiso requerido (Toca para activar)</string>
+
 </resources>

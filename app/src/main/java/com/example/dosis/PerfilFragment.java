@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -19,7 +20,6 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
-import com.example.dosis.db.PerfilPreferences;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
@@ -28,7 +28,7 @@ public class PerfilFragment extends Fragment {
     private TextView tvInicialesPerfil, tvNombrePerfil, tvEstadoAlarmas, tvFormatoHorario;
     private MaterialCardView btnEditarNombre, cardAlarmasExactas, cardFormatoHorario;
     private SwitchMaterial switchNotificaciones;
-    private PerfilPreferences perfilPrefs;
+    private SharedPreferences prefs;
 
     @Nullable
     @Override
@@ -47,10 +47,11 @@ public class PerfilFragment extends Fragment {
             return insets;
         });
 
-        perfilPrefs = new PerfilPreferences(requireContext());
+        // Sincronizado con las SharedPreferences globales de la app ("DosisPrefs")
+        prefs = requireContext().getSharedPreferences("DosisPrefs", Context.MODE_PRIVATE);
 
         tvInicialesPerfil = view.findViewById(R.id.tvInicialesPerfil);
-        tvNombrePerfil = view.findViewById(R.id.tvNombrePerfil);
+        tvNombrePerfil = view.findViewById(R.id.tvSaludoUsuario);
         tvEstadoAlarmas = view.findViewById(R.id.tvEstadoAlarmas);
         tvFormatoHorario = view.findViewById(R.id.tvFormatoHorario);
         btnEditarNombre = view.findViewById(R.id.btnEditarNombre);
@@ -69,19 +70,23 @@ public class PerfilFragment extends Fragment {
     }
 
     private void cargarDatosPerfil() {
-        String nombre = perfilPrefs.obtenerNombreUsuario();
+        // Obtenemos el nombre real guardado al iniciar la app
+        String nombre = prefs.getString("nombre_usuario", "Usuario");
         tvNombrePerfil.setText(nombre);
         tvInicialesPerfil.setText(generarIniciales(nombre));
 
-        switchNotificaciones.setChecked(perfilPrefs.areNotificacionesActivas());
-        actualizarTextoFormatoHorario(perfilPrefs.isFormato24Horas());
+        boolean notifActivas = prefs.getBoolean("notificaciones_activas", true);
+        switchNotificaciones.setChecked(notifActivas);
+
+        boolean es24h = prefs.getBoolean("formato_24h", false);
+        actualizarTextoFormatoHorario(es24h);
     }
 
     private void configurarEventos() {
         btnEditarNombre.setOnClickListener(v -> mostrarDialogoEditarNombre());
 
         switchNotificaciones.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            perfilPrefs.setNotificacionesActivas(isChecked);
+            prefs.edit().putBoolean("notificaciones_activas", isChecked).apply();
             String estado = isChecked ? "activadas" : "desactivadas";
             Toast.makeText(requireContext(), "Notificaciones " + estado, Toast.LENGTH_SHORT).show();
         });
@@ -96,8 +101,8 @@ public class PerfilFragment extends Fragment {
         });
 
         cardFormatoHorario.setOnClickListener(v -> {
-            boolean nuevoEstado24h = !perfilPrefs.isFormato24Horas();
-            perfilPrefs.setFormato24Horas(nuevoEstado24h);
+            boolean nuevoEstado24h = !prefs.getBoolean("formato_24h", false);
+            prefs.edit().putBoolean("formato_24h", nuevoEstado24h).apply();
             actualizarTextoFormatoHorario(nuevoEstado24h);
         });
     }
@@ -107,16 +112,18 @@ public class PerfilFragment extends Fragment {
         builder.setTitle("Editar nombre");
 
         final EditText input = new EditText(requireContext());
-        input.setText(perfilPrefs.obtenerNombreUsuario());
+        input.setText(prefs.getString("nombre_usuario", ""));
         input.setSelection(input.getText().length());
         builder.setView(input);
 
         builder.setPositiveButton("Guardar", (dialog, which) -> {
             String nuevoNombre = input.getText().toString().trim();
             if (!nuevoNombre.isEmpty()) {
-                perfilPrefs.guardarNombreUsuario(nuevoNombre);
+                // Guardamos el cambio en SharedPreferences para que se actualice en toda la app
+                prefs.edit().putString("nombre_usuario", nuevoNombre).apply();
                 tvNombrePerfil.setText(nuevoNombre);
                 tvInicialesPerfil.setText(generarIniciales(nuevoNombre));
+                Toast.makeText(requireContext(), "Nombre actualizado", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(requireContext(), "El nombre no puede estar vacío", Toast.LENGTH_SHORT).show();
             }
